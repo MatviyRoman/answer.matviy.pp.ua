@@ -8,11 +8,24 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
+
 <body>
 
     <header class="header">
         <h1>Питання і відповідді по співбесідам</h1>
     </header>
+    <div class="protect" id="protect">
+        <div class="main-container">
+            Для показу інформації потрібно ввести login і password
+            <form name="myform">
+                <p><input type="text" name="username" placeholder="ENTER LOGIN"></p>
+                <p><input type="password" name="pword" placeholder="ENTER PASSWORD"></p>
+                <p><input type="button" value="Check In" name="Submit" id="submiit">
+                </p>
+
+            </form>
+        </div>
+    </div>
 
     <section class="html block">
         <div class="main-container">
@@ -273,8 +286,65 @@
             </ol>
         </div>
     </section>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let count = 2;
+
+            document.getElementById("submiit").onclick = function() {
+                function validate() {
+                    let un = document.myform.username.value;
+                    let pw = document.myform.pword.value;
+                    let valid = false;
+
+                    let unArray = ["Roman", "roman"]; // as many as you like - no comma after final entry
+                    let pwArray = ["", "123"]; // the corresponding passwords;
+
+                    for (let i = 0; i < unArray.length; i++) {
+                        if ((un == unArray[i]) && (pw == pwArray[i])) {
+                            valid = true;
+                            break;
+                        }
+                    }
+
+                    if (valid) {
+                        //alert("Login was successful");
+                        //window.location = "learn.html";
+
+                        document.getElementById('protect').style.display = 'none';
+                        let elems = document.getElementsByClassName('block');
+                        for (var i = 0; i < elems.length; i += 1) {
+                            elems[i].style.display = 'block';
+                        }
+                        return false;
+                    }
+
+                    let t = " tries";
+                    if (count == 1) {
+                        t = " try"
+                    }
+
+                    if (count >= 1) {
+                        alert("Invalid username and/or password.  You have " + count + t + " left.");
+                        document.myform.username.value = "";
+                        document.myform.pword.value = "";
+                        setTimeout("document.myform.username.focus()", 25);
+                        setTimeout("document.myform.username.select()", 25);
+                        count--;
+                    } else {
+                        alert("Still incorrect! You have no more tries left!");
+                        document.myform.username.value = "No more tries allowed!";
+                        document.myform.pword.value = "";
+                        document.myform.username.disabled = true;
+                        document.myform.pword.disabled = true;
+                        return false;
+                    }
+                }
+                validate();
+            };
 
 
+        });
+    </script>
 </body>
 
 </html>
