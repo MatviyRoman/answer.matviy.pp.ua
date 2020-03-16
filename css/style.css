@@ -41,6 +41,11 @@ body {
 }
 
 .block ol li + li {
-  margin-top: 10px;
+  margin-top: 30px;
+}
+
+.block ol li p:first-child {
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 /*# sourceMappingURL=style.css.map */
